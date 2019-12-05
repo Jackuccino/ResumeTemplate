@@ -70,33 +70,55 @@ const createPDF = function(info, cb) {
       family: "Helvetica-Bold",
       fill: "#000000"
     });
-    createTextAt(pdf, info.educations[i].place, 130, leftStartY + 17 + g, {
+    createTextAt(pdf, info.educations[i].place, 130, leftStartY + 17 + 17 + g, {
       size: 9,
       family: "Times-Roman",
       fill: "#000000"
     });
-    createTextAt(pdf, info.educations[i].gpa, 130, leftStartY + 17 + 17 + g, {
-      size: 9,
-      family: "Times-Roman",
-      fill: "#000000",
-      width: textWidth
-    });
-    createTextAt(pdf, "Major Courses", 130, leftStartY + 17 + 17 + 17 + g, {
-      size: 9,
-      family: "Times-Roman",
-      fill: "#000000",
-      width: textWidth
-    });
+    createTextAt(
+      pdf,
+      info.educations[i].gpa,
+      130,
+      leftStartY + 17 + 17 + 17 + g,
+      {
+        size: 9,
+        family: "Times-Roman",
+        fill: "#000000",
+        width: textWidth
+      }
+    );
+    // createTextAt(pdf, "Minors", 130, leftStartY + 17 + 17 + 17 + g, {
+    //   size: 9,
+    //   family: "Times-Roman",
+    //   fill: "#000000",
+    //   width: textWidth
+    // });
+    // if (info.educations[i].minors.length > 0) {
+    //   pdf.list(info.educations[i].minors);
+    // }
+    // const heightOfMinors = pdf.heightOfString(info.educations[i].minors, {
+    //   width: textWidth - 120
+    // });
+    // leftStartY = leftStartY + 8 + heightOfMinors;
+    createTextAt(
+      pdf,
+      "Major Courses",
+      130,
+      leftStartY + 17 + 17 + 17 + 17 + g,
+      {
+        size: 9,
+        family: "Times-Roman",
+        fill: "#000000",
+        width: textWidth
+      }
+    );
     if (info.educations[i].courses.length > 0) {
       pdf.list(info.educations[i].courses);
     }
-    const heightOfResponsibilties = pdf.heightOfString(
-      info.educations[i].courses,
-      {
-        width: textWidth - 120
-      }
-    );
-    leftStartY = leftStartY + 17 + 17 + 17 + heightOfResponsibilties;
+    const heightOfCourses = pdf.heightOfString(info.educations[i].courses, {
+      width: textWidth - 120
+    });
+    leftStartY = leftStartY + 17 + 17 + 17 + 17 + heightOfCourses;
   }
   leftStartY += 35;
 

@@ -10,7 +10,7 @@ router.get("/", (ctx, next) => {
     user: {
       name: "Jin Jie/Jack Xu",
       summary:
-        "Upcoming BSSE graduate with 4 years experience in programming across various platforms.",
+        "BSSE graduate with 4 years experience in programming across various platforms",
       profession: "Software Engineer",
       address: "1010 California Ave",
       city: "Klamath Falls",
@@ -54,11 +54,13 @@ router.get("/", (ctx, next) => {
     ],
     educations: [
       {
-        name: "B.S. Software Engineering",
+        name:
+          "Bachelor of Science, Major in Software Engineering, Minor in Applied Mathematics",
         place: "OREGON INSTITUTE OF TECHNOLOGY, KLAMATH FALLS, OR",
         from: "2015",
         to: "2019",
         gpa: "GPA: 3.66/4.0",
+        minors: ["Applied Mathematics"],
         courses: [
           "CST 211 Data Structures",
           "CST 236 Engineering for Quality Software",
