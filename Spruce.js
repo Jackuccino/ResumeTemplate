@@ -87,19 +87,6 @@ const createPDF = function(info, cb) {
         width: textWidth
       }
     );
-    // createTextAt(pdf, "Minors", 130, leftStartY + 17 + 17 + 17 + g, {
-    //   size: 9,
-    //   family: "Times-Roman",
-    //   fill: "#000000",
-    //   width: textWidth
-    // });
-    // if (info.educations[i].minors.length > 0) {
-    //   pdf.list(info.educations[i].minors);
-    // }
-    // const heightOfMinors = pdf.heightOfString(info.educations[i].minors, {
-    //   width: textWidth - 120
-    // });
-    // leftStartY = leftStartY + 8 + heightOfMinors;
     createTextAt(
       pdf,
       "Major Courses",
@@ -254,44 +241,58 @@ const createPDF = function(info, cb) {
     .stroke();
   rightStartY += 25;
 
-  for (let i = 0, g = 0; i < info.hardskills.length; ++i, g += 15) {
-    pdf
-      .circle(leftMargin2 + leftMargin + 75, rightStartY + 4 + g, 5)
-      .circle(leftMargin2 + leftMargin + 87, rightStartY + 4 + g, 5)
-      .circle(leftMargin2 + leftMargin + 99, rightStartY + 4 + g, 5)
-      .circle(leftMargin2 + leftMargin + 111, rightStartY + 4 + g, 5)
-      .circle(leftMargin2 + leftMargin + 123, rightStartY + 4 + g, 5)
-      .stroke();
-
-    for (let j = 0, k = 0; j < info.hardskills[i].level; j++, k += 12) {
-      pdf
-        .circle(leftMargin2 + leftMargin + 75 + k, rightStartY + 4 + g, 5)
-        .fill();
-    }
-
-    createTextAt(
-      pdf,
-      info.hardskills[i].name,
-      leftMargin2 + leftMargin,
-      rightStartY + g,
-      {
-        size: 9,
-        family: "Helvetica",
-        fill: "#000000"
-      }
-    );
-    createTextAt(
-      pdf,
-      info.hardskills[i].proficiency,
-      leftMargin2 +
-        leftMargin +
-        125 -
-        pdf.widthOfString(info.hardskills[i].proficiency),
-      rightStartY + 15 + g,
-      { size: 9, family: "Helvetica", fill: "#000000" }
-    );
-    rightStartY += 20;
+  //*********** hardskills bullet list
+  if (info.hardskills_bulletlist.length > 0) {
+    pdf.fontSize(9);
+    pdf.font("Helvetica");
+    pdf.fill("#000000");
+    pdf.list(info.hardskills_bulletlist);
   }
+  // const heightOfHardskills = pdf.heightOfString(info.hardskills_bulletlist, {
+  //   width: textWidth - 120
+  // });
+  const heightOfHardskills = (info.hardskills_bulletlist.length - 1) * 9;
+  rightStartY = rightStartY + heightOfHardskills;
+
+  //*********** hardskills with levels
+  // for (let i = 0, g = 0; i < info.hardskills.length; ++i, g += 15) {
+  //   pdf
+  //     .circle(leftMargin2 + leftMargin + 75, rightStartY + 4 + g, 5)
+  //     .circle(leftMargin2 + leftMargin + 87, rightStartY + 4 + g, 5)
+  //     .circle(leftMargin2 + leftMargin + 99, rightStartY + 4 + g, 5)
+  //     .circle(leftMargin2 + leftMargin + 111, rightStartY + 4 + g, 5)
+  //     .circle(leftMargin2 + leftMargin + 123, rightStartY + 4 + g, 5)
+  //     .stroke();
+
+  //   for (let j = 0, k = 0; j < info.hardskills[i].level; j++, k += 12) {
+  //     pdf
+  //       .circle(leftMargin2 + leftMargin + 75 + k, rightStartY + 4 + g, 5)
+  //       .fill();
+  //   }
+
+  //   createTextAt(
+  //     pdf,
+  //     info.hardskills[i].name,
+  //     leftMargin2 + leftMargin,
+  //     rightStartY + g,
+  //     {
+  //       size: 9,
+  //       family: "Helvetica",
+  //       fill: "#000000"
+  //     }
+  //   );
+  //   createTextAt(
+  //     pdf,
+  //     info.hardskills[i].proficiency,
+  //     leftMargin2 +
+  //       leftMargin +
+  //       125 -
+  //       pdf.widthOfString(info.hardskills[i].proficiency),
+  //     rightStartY + 15 + g,
+  //     { size: 9, family: "Helvetica", fill: "#000000" }
+  //   );
+  //   rightStartY += 20;
+  // }
 
   rightStartY += 45;
 
@@ -308,49 +309,62 @@ const createPDF = function(info, cb) {
     .stroke();
   rightStartY += 25;
 
-  for (let i = 0, g = 0; i < info.softskills.length; ++i, g += 15) {
-    pdf
-      .circle(leftMargin2 + leftMargin + 75, rightStartY + 4 + g, 5)
-      .circle(leftMargin2 + leftMargin + 87, rightStartY + 4 + g, 5)
-      .circle(leftMargin2 + leftMargin + 99, rightStartY + 4 + g, 5)
-      .circle(leftMargin2 + leftMargin + 111, rightStartY + 4 + g, 5)
-      .circle(leftMargin2 + leftMargin + 123, rightStartY + 4 + g, 5)
-      .stroke();
-
-    for (let j = 0, k = 0; j < info.softskills[i].level; j++, k += 12) {
-      pdf
-        .circle(leftMargin2 + leftMargin + 75 + k, rightStartY + 4 + g, 5)
-        .fill();
-    }
-
-    createTextAt(
-      pdf,
-      info.softskills[i].name,
-      leftMargin2 + leftMargin,
-      rightStartY + g,
-      {
-        size: 9,
-        family: "Helvetica",
-        fill: "#000000"
-      }
-    );
-    createTextAt(
-      pdf,
-      info.softskills[i].proficiency,
-      leftMargin2 +
-        leftMargin +
-        125 -
-        pdf.widthOfString(info.softskills[i].proficiency),
-      rightStartY + 15 + g,
-      { size: 9, family: "Helvetica", fill: "#000000" }
-    );
-    rightStartY += 20;
+  //*********** softskills bullet list
+  if (info.softskills_bulletlist.length > 0) {
+    pdf.fontSize(9);
+    pdf.font("Helvetica");
+    pdf.fill("#000000");
+    pdf.list(info.softskills_bulletlist);
   }
+  // const heightOfSoftskills = pdf.heightOfString(info.softskills_bulletlist, {
+  //   width: textWidth - 120
+  // });
+  const heightOfSoftskills = (info.softskills_bulletlist.length - 1) * 9;
+  rightStartY = rightStartY + heightOfSoftskills;
+
+  // for (let i = 0, g = 0; i < info.softskills.length; ++i, g += 15) {
+  //   pdf
+  //     .circle(leftMargin2 + leftMargin + 75, rightStartY + 4 + g, 5)
+  //     .circle(leftMargin2 + leftMargin + 87, rightStartY + 4 + g, 5)
+  //     .circle(leftMargin2 + leftMargin + 99, rightStartY + 4 + g, 5)
+  //     .circle(leftMargin2 + leftMargin + 111, rightStartY + 4 + g, 5)
+  //     .circle(leftMargin2 + leftMargin + 123, rightStartY + 4 + g, 5)
+  //     .stroke();
+
+  //   for (let j = 0, k = 0; j < info.softskills[i].level; j++, k += 12) {
+  //     pdf
+  //       .circle(leftMargin2 + leftMargin + 75 + k, rightStartY + 4 + g, 5)
+  //       .fill();
+  //   }
+
+  //   createTextAt(
+  //     pdf,
+  //     info.softskills[i].name,
+  //     leftMargin2 + leftMargin,
+  //     rightStartY + g,
+  //     {
+  //       size: 9,
+  //       family: "Helvetica",
+  //       fill: "#000000"
+  //     }
+  //   );
+  //   createTextAt(
+  //     pdf,
+  //     info.softskills[i].proficiency,
+  //     leftMargin2 +
+  //       leftMargin +
+  //       125 -
+  //       pdf.widthOfString(info.softskills[i].proficiency),
+  //     rightStartY + 15 + g,
+  //     { size: 9, family: "Helvetica", fill: "#000000" }
+  //   );
+  //   rightStartY += 20;
+  // }
 
   rightStartY += 30;
 
   //Create Languages
-  createTextAt(pdf, "Languages", leftMargin2 + leftMargin, rightStartY, {
+  createTextAt(pdf, "Prog. Languages", leftMargin2 + leftMargin, rightStartY, {
     size: 15,
     family: "Helvetica-Bold",
     fill: "#000000"
@@ -362,44 +376,57 @@ const createPDF = function(info, cb) {
     .stroke();
   rightStartY += 25;
 
-  for (let i = 0, g = 0; i < info.languages.length; ++i, g += 15) {
-    pdf
-      .circle(leftMargin2 + leftMargin + 75, rightStartY + 4 + g, 5)
-      .circle(leftMargin2 + leftMargin + 87, rightStartY + 4 + g, 5)
-      .circle(leftMargin2 + leftMargin + 99, rightStartY + 4 + g, 5)
-      .circle(leftMargin2 + leftMargin + 111, rightStartY + 4 + g, 5)
-      .circle(leftMargin2 + leftMargin + 123, rightStartY + 4 + g, 5)
-      .stroke();
-
-    for (let j = 0, k = 0; j < info.languages[i].level; j++, k += 12) {
-      pdf
-        .circle(leftMargin2 + leftMargin + 75 + k, rightStartY + 4 + g, 5)
-        .fill();
-    }
-
-    createTextAt(
-      pdf,
-      info.languages[i].name,
-      leftMargin2 + leftMargin,
-      rightStartY + g,
-      {
-        size: 9,
-        family: "Helvetica",
-        fill: "#000000"
-      }
-    );
-    createTextAt(
-      pdf,
-      info.languages[i].proficiency,
-      leftMargin2 +
-        leftMargin +
-        125 -
-        pdf.widthOfString(info.languages[i].proficiency),
-      rightStartY + 15 + g,
-      { size: 9, family: "Helvetica", fill: "#000000" }
-    );
-    rightStartY += 20;
+  //*********** language bullet list
+  if (info.languages_bulletlist.length > 0) {
+    pdf.fontSize(9);
+    pdf.font("Helvetica");
+    pdf.fill("#000000");
+    pdf.list(info.languages_bulletlist);
   }
+  // const heightOfLanguages = pdf.heightOfString(info.languages_bulletlist, {
+  //   width: textWidth - 120
+  // });
+  const heightOfLanguages = (info.languages_bulletlist.length - 1) * 9;
+  rightStartY = rightStartY + heightOfLanguages;
+
+  // for (let i = 0, g = 0; i < info.languages.length; ++i, g += 15) {
+  //   pdf
+  //     .circle(leftMargin2 + leftMargin + 75, rightStartY + 4 + g, 5)
+  //     .circle(leftMargin2 + leftMargin + 87, rightStartY + 4 + g, 5)
+  //     .circle(leftMargin2 + leftMargin + 99, rightStartY + 4 + g, 5)
+  //     .circle(leftMargin2 + leftMargin + 111, rightStartY + 4 + g, 5)
+  //     .circle(leftMargin2 + leftMargin + 123, rightStartY + 4 + g, 5)
+  //     .stroke();
+
+  //   for (let j = 0, k = 0; j < info.languages[i].level; j++, k += 12) {
+  //     pdf
+  //       .circle(leftMargin2 + leftMargin + 75 + k, rightStartY + 4 + g, 5)
+  //       .fill();
+  //   }
+
+  //   createTextAt(
+  //     pdf,
+  //     info.languages[i].name,
+  //     leftMargin2 + leftMargin,
+  //     rightStartY + g,
+  //     {
+  //       size: 9,
+  //       family: "Helvetica",
+  //       fill: "#000000"
+  //     }
+  //   );
+  //   createTextAt(
+  //     pdf,
+  //     info.languages[i].proficiency,
+  //     leftMargin2 +
+  //       leftMargin +
+  //       125 -
+  //       pdf.widthOfString(info.languages[i].proficiency),
+  //     rightStartY + 15 + g,
+  //     { size: 9, family: "Helvetica", fill: "#000000" }
+  //   );
+  //   rightStartY += 20;
+  // }
 
   pdf.end();
   pdf.on("end", () => {

@@ -62,12 +62,11 @@ router.get("/", (ctx, next) => {
         gpa: "GPA: 3.66/4.0",
         minors: ["Applied Mathematics"],
         courses: [
-          "CST 211 Data Structures",
-          "CST 236 Engineering for Quality Software",
-          "CST 276 Software Design Patterns",
-          "CST 324 Database Systems and Design",
-          "CST 320 Compiler Methods",
-          "CST 352 Operating Systems"
+          "CST211 Data Structures",
+          "CST236 Engineering for Quality Software",
+          "CST276 Software Design Patterns",
+          "CST324 Database Systems and Design",
+          "CST356 Web Development"
         ]
       }
     ],
@@ -88,6 +87,18 @@ router.get("/", (ctx, next) => {
         proficiency: "Expert"
       }
     ],
+    hardskills_bulletlist: [
+      "OOP",
+      "Debugging",
+      "Unix Env.",
+      "SQL",
+      "RESTful API",
+      "Mobile Dev",
+      "Web Dev",
+      "SDLC",
+      "Git",
+      "VS Code"
+    ],
     softskills: [
       {
         name: "Collaboration",
@@ -99,6 +110,13 @@ router.get("/", (ctx, next) => {
         level: 4,
         proficiency: "Advanced"
       }
+    ],
+    softskills_bulletlist: [
+      "Collaboration",
+      "Critical Thinking",
+      "Problem Solving",
+      "Positive Attitude",
+      "Multi-languages"
     ],
     languages: [
       {
@@ -121,6 +139,14 @@ router.get("/", (ctx, next) => {
         level: 3,
         proficiency: "Intermediate"
       }
+    ],
+    languages_bulletlist: [
+      "C/C++",
+      "C#",
+      "JS",
+      "React/React Native",
+      "SQL",
+      "HTML"
     ]
   };
   Spruce(info, pdf => {
