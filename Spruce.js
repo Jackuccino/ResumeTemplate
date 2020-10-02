@@ -1,16 +1,16 @@
-const createPDF = function(info, cb) {
+const createPDF = function (info, cb) {
   const pdfkit = require("pdfkit");
   const strokeColor = "#D1D1D1";
   const topRectColor = "#373D48";
   const rightRectColor = "#F1F1F1";
   const pdf = new pdfkit({
     size: "Letter",
-    layout: "portrait"
+    layout: "portrait",
   });
 
   const PageSize = {
     width: pdf.page.width,
-    height: pdf.page.height
+    height: pdf.page.height,
   };
   const leftMargin = 26;
   const rightMargin = 180;
@@ -19,7 +19,7 @@ const createPDF = function(info, cb) {
   const links = [
     ["LinkedIn", info.user.linkedin],
     ["Twitter", info.user.twitter],
-    ["Personal", info.user.personal]
+    ["Personal", info.user.personal],
   ];
   let buffers = [];
   let leftStartY = 160;
@@ -31,11 +31,11 @@ const createPDF = function(info, cb) {
   pdf.rect(0, 0, PageSize.width, 93).fill(topRectColor);
   createTextAt(pdf, info.user.name, leftMargin, 26, {
     size: 25,
-    family: "Helvetica"
+    family: "Helvetica",
   });
   createTextAt(pdf, info.user.profession, leftMargin, 56, {
     size: 15,
-    family: "Helvetica"
+    family: "Helvetica",
   });
 
   // Create Summary
@@ -43,14 +43,14 @@ const createPDF = function(info, cb) {
     size: 9,
     family: "Helvetica",
     fill: "#000000",
-    width: textWidth + 100
+    width: textWidth + 100,
   });
 
   //Create Education
   createTextAt(pdf, "Education", leftMargin, 132, {
     size: 15,
     family: "Helvetica-Bold",
-    fill: "#000000"
+    fill: "#000000",
   });
   pdf
     .moveTo(leftMargin, 150)
@@ -68,12 +68,12 @@ const createPDF = function(info, cb) {
     createTextAt(pdf, info.educations[i].name, 130, leftStartY - 2 + g, {
       size: 12,
       family: "Helvetica-Bold",
-      fill: "#000000"
+      fill: "#000000",
     });
     createTextAt(pdf, info.educations[i].place, 130, leftStartY + 17 + 17 + g, {
       size: 9,
       family: "Times-Roman",
-      fill: "#000000"
+      fill: "#000000",
     });
     createTextAt(
       pdf,
@@ -84,36 +84,36 @@ const createPDF = function(info, cb) {
         size: 9,
         family: "Times-Roman",
         fill: "#000000",
-        width: textWidth
+        width: textWidth,
       }
     );
-    createTextAt(
-      pdf,
-      "Major Courses",
-      130,
-      leftStartY + 17 + 17 + 17 + 17 + g,
-      {
-        size: 9,
-        family: "Times-Roman",
-        fill: "#000000",
-        width: textWidth
-      }
-    );
-    if (info.educations[i].courses.length > 0) {
-      pdf.list(info.educations[i].courses);
-    }
-    const heightOfCourses = pdf.heightOfString(info.educations[i].courses, {
-      width: textWidth - 120
-    });
-    leftStartY = leftStartY + 17 + 17 + 17 + 17 + heightOfCourses;
+    // createTextAt(
+    //   pdf,
+    //   "Major Courses",
+    //   130,
+    //   leftStartY + 17 + 17 + 17 + 17 + g,
+    //   {
+    //     size: 9,
+    //     family: "Times-Roman",
+    //     fill: "#000000",
+    //     width: textWidth,
+    //   }
+    // );
+    // if (info.educations[i].courses.length > 0) {
+    //   pdf.list(info.educations[i].courses);
+    // }
+    // const heightOfCourses = pdf.heightOfString(info.educations[i].courses, {
+    //   width: textWidth - 120,
+    // });
+    // leftStartY = leftStartY + 17 + 17 + 17 + 17 + heightOfCourses;
   }
-  leftStartY += 35;
+  leftStartY += 75;
 
   //Create Experience
   createTextAt(pdf, "Experience", leftMargin, leftStartY, {
     size: 15,
     family: "Helvetica-Bold",
-    fill: "#000000"
+    fill: "#000000",
   });
   pdf
     .moveTo(leftMargin, leftStartY + 15)
@@ -138,12 +138,12 @@ const createPDF = function(info, cb) {
     createTextAt(pdf, info.experiences[i].title, 130, leftStartY - 2 + g, {
       size: 12,
       family: "Helvetica-Bold",
-      fill: "#000000"
+      fill: "#000000",
     });
     createTextAt(pdf, info.experiences[i].place, 130, leftStartY + 17 + g, {
       size: 9,
       family: "Times-Italic",
-      fill: "#000000"
+      fill: "#000000",
     });
     createTextAt(
       pdf,
@@ -167,7 +167,7 @@ const createPDF = function(info, cb) {
   createTextAt(pdf, "Personal Info", leftMargin2 + leftMargin, 108, {
     size: 15,
     family: "Helvetica-Bold",
-    fill: "#000000"
+    fill: "#000000",
   });
   pdf
     .moveTo(leftMargin2 + leftMargin, 123)
@@ -178,12 +178,12 @@ const createPDF = function(info, cb) {
   createTextAt(pdf, "Address", leftMargin2 + leftMargin, 138, {
     size: 9,
     family: "Helvetica-Bold",
-    fill: "#000000"
+    fill: "#000000",
   });
   createTextAt(pdf, info.user.address + ",", leftMargin2 + leftMargin, 157, {
     size: 9,
     family: "Helvetica",
-    fill: "#000000"
+    fill: "#000000",
   });
   createTextAt(
     pdf,
@@ -195,22 +195,22 @@ const createPDF = function(info, cb) {
   createTextAt(pdf, "Phone", leftMargin2 + leftMargin, 195, {
     size: 9,
     family: "Helvetica-Bold",
-    fill: "#000000"
+    fill: "#000000",
   });
   createTextAt(pdf, info.user.phone, leftMargin2 + leftMargin, 214, {
     size: 9,
     family: "Helvetica",
-    fill: "#000000"
+    fill: "#000000",
   });
   createTextAt(pdf, "Email", leftMargin2 + leftMargin, 238, {
     size: 9,
     family: "Helvetica-Bold",
-    fill: "#000000"
+    fill: "#000000",
   });
   createTextAt(pdf, info.user.email, leftMargin2 + leftMargin, 257, {
     size: 9,
     family: "Helvetica",
-    fill: "#000000"
+    fill: "#000000",
   });
 
   for (let i = 0, g = 0, f = 0; i < links.length; ++i, g += 15, f += 9) {
@@ -218,12 +218,12 @@ const createPDF = function(info, cb) {
       createTextAt(pdf, links[i][0], leftMargin2 + leftMargin, 281 + g + f, {
         size: 9,
         family: "Helvetica-Bold",
-        fill: "#000000"
+        fill: "#000000",
       });
       createTextAt(pdf, links[i][1], leftMargin2 + leftMargin, 300 + g + f, {
         size: 9,
         family: "Helvetica",
-        fill: "#000000"
+        fill: "#000000",
       });
     }
   }
@@ -232,7 +232,7 @@ const createPDF = function(info, cb) {
   createTextAt(pdf, "Hard Skills", leftMargin2 + leftMargin, rightStartY, {
     size: 15,
     family: "Helvetica-Bold",
-    fill: "#000000"
+    fill: "#000000",
   });
   pdf
     .moveTo(leftMargin2 + leftMargin, rightStartY + 15)
@@ -300,7 +300,7 @@ const createPDF = function(info, cb) {
   createTextAt(pdf, "Soft Skills", leftMargin2 + leftMargin, rightStartY, {
     size: 15,
     family: "Helvetica-Bold",
-    fill: "#000000"
+    fill: "#000000",
   });
   pdf
     .moveTo(leftMargin2 + leftMargin, rightStartY + 15)
@@ -367,7 +367,7 @@ const createPDF = function(info, cb) {
   createTextAt(pdf, "Prog. Languages", leftMargin2 + leftMargin, rightStartY, {
     size: 15,
     family: "Helvetica-Bold",
-    fill: "#000000"
+    fill: "#000000",
   });
   pdf
     .moveTo(leftMargin2 + leftMargin, rightStartY + 15)
@@ -438,7 +438,7 @@ const createPDF = function(info, cb) {
 function createTextAt(pdf, t, x, y, z) {
   const PageSize = {
     width: pdf.page.width,
-    height: pdf.page.height
+    height: pdf.page.height,
   };
   const leftMargin = 26;
   const rightMargin = 300;
@@ -449,7 +449,7 @@ function createTextAt(pdf, t, x, y, z) {
       fill: "#FFFFFF",
       family: "Times-Roman",
       width: PageSize.width - leftMargin - rightMargin,
-      lineGap: 5
+      lineGap: 5,
     },
     z
   );
@@ -457,7 +457,7 @@ function createTextAt(pdf, t, x, y, z) {
   pdf.fontSize(style.size);
   pdf.font(style.family).text(t, x, y, {
     width: style.width,
-    lineGap: style.lineGap
+    lineGap: style.lineGap,
   });
 }
 module.exports = createPDF;
